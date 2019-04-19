@@ -12,3 +12,4 @@ letsencrypt/config/*
 
 letsencrypt/config/nginx/*
 !letsencrypt/config/nginx/site-confs/
+!letsencrypt/config/nginx/nginx.conf
