@@ -1,0 +1,46 @@
+version: '3.3'
+
+services:
+   db:
+     image: hypriot/rpi-mysql:latest
+     restart: always
+     volumes:
+       - ./data:/var/lib/mysql
+     environment:
+       - MYSQL_ROOT_PASSWORD
+       - MYSQL_DATABASE
+       - MYSQL_USER
+       - MYSQL_PASSWORD
+   wordpress:
+     image: wordpress:5-fpm
+     depends_on:
+       - db
+     restart: always
+     volumes:
+       - ./php-uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+       - ./wordpress:/var/www/html
+     environment:
+       - WORDPRESS_DB_HOST
+       - WORDPRESS_DB_USER
+       - WORDPRESS_DB_PASSWORD
+   letsencrypt:
+     image: linuxserver/letsencrypt
+     container_name: letsencrypt
+     ports:
+       - 443:443
+       - 80:80
+     volumes:
+       - ./letsencrypt/config:/config
+       - ./devportfolio:/var/www/html/devportfolio
+       - ./wordpress:/var/www/html/wordpress
+     restart: always
+     depends_on:
+       - wordpress
+     environment:
+       - PUID
+       - PGID
+       - EMAIL
+       - URL
+       - SUBDOMAINS
+       - TZ
+

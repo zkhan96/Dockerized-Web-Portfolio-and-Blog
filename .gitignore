@@ -1,0 +1,14 @@
+data/
+devportfolio/
+wordpress/
+.env
+
+# ignore everything in here, but not the folder that leads to the site configs
+letsencrypt/*
+!letsencrypt/config/
+
+letsencrypt/config/*
+!letsencrypt/config/nginx/
+
+letsencrypt/config/nginx/*
+!letsencrypt/config/nginx/site-confs/
