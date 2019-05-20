@@ -4,8 +4,8 @@
 # redirect all traffic to https
 server {
 	listen 80;
-	listen [::]:80;
-	server_name _;
+	#listen [::]:80;
+	server_name localhost;
 	return 301 https://$host$request_uri;
 }
 

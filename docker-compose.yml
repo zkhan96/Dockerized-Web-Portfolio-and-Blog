@@ -19,7 +19,6 @@ services:
        - db
      restart: always
      volumes:
-       - ./php-uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
        - ./wordpress:/var/www/html
      environment:
        - WORDPRESS_DB_HOST
@@ -37,6 +36,7 @@ services:
        - ./letsencrypt/config:/config
        - ./devportfolio:/var/www/html/devportfolio
        - ./wordpress:/var/www/html/wordpress
+       - ./uploads.ini:/config/php/php-local.ini
      restart: always
      depends_on:
        - wordpress
