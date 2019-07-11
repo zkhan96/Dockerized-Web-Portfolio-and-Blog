@@ -37,14 +37,27 @@ services:
        - ./devportfolio:/var/www/html/devportfolio
        - ./wordpress:/var/www/html/wordpress
        - ./uploads.ini:/config/php/php-local.ini
+       - ./cacert.pem:/config/php/cacert.pem
      restart: always
      depends_on:
        - wordpress
      environment:
+       - VALIDATION
        - PUID
        - PGID
        - EMAIL
        - URL
        - SUBDOMAINS
        - TZ
+   ddns:
+     image: peteward44/godaddy-ddns:latest
+     restart: always
+     volumes:
+       - ./godaddy-ddns:/etc/cron.d/godaddy-ddns
+     environment:
+       - GODADDY_KEY
+       - GODADDY_SECRET
+       - GODADDY_DOMAIN
+       - GODADDY_TYPE
+       - GODADDY_NAME
 
