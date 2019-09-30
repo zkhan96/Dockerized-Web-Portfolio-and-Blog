@@ -30,8 +30,8 @@ services:
      image: linuxserver/letsencrypt
      container_name: letsencrypt
      ports:
-       - 443:443
-       - 80:80
+       - 4430:443
+       - 8000:80
      volumes:
        - ./letsencrypt/config:/config
        - ./devportfolio:/var/www/html/devportfolio
@@ -60,4 +60,12 @@ services:
        - GODADDY_DOMAIN
        - GODADDY_TYPE
        - GODADDY_NAME
-
+   homeassistant:
+     container_name: home-assistant
+     image: homeassistant/home-assistant:stable
+     volumes:
+       - ./home-assistant/config:/config
+     environment:
+       - TZ=Europe/London
+     restart: always
+     #network_mode: host
